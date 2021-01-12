@@ -8,7 +8,7 @@ import by.epam.tc.view.XMLPrinter;
 import java.io.IOException;
 
 public class Main {
-    private static final String PATH = "src/main/resources/data2.xml";
+    private static final String PATH = "src/main/resources/data.xml";
 
     public static void main(String[] args) throws IOException {
         XMLReader reader = new XMLReader();

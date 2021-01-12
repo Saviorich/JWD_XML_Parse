@@ -6,20 +6,20 @@ import java.util.List;
 public class Element {
     private String name;
     private List<Attribute> attributes;
-    private List<Element> childElements;
+    private List<Element> childs;
     private String content;
 
     {
         attributes = new ArrayList<>();
-        childElements = new ArrayList<>();
+        childs = new ArrayList<>();
     }
 
     public Element() {}
 
-    public Element(String name, List<Attribute> attributes, List<Element> childElements, String content) {
+    public Element(String name, List<Attribute> attributes, List<Element> childs, String content) {
         this.name = name;
         this.attributes = attributes;
-        this.childElements = childElements;
+        this.childs = childs;
         this.content = content;
     }
 
@@ -39,12 +39,12 @@ public class Element {
         this.attributes = attributes;
     }
 
-    public List<Element> getChildElements() {
-        return childElements;
+    public List<Element> getChilds() {
+        return childs;
     }
 
-    public void setChildElements(List<Element> childElements) {
-        this.childElements = childElements;
+    public void setChilds(List<Element> childs) {
+        this.childs = childs;
     }
 
     public String getContent() {
@@ -68,11 +68,11 @@ public class Element {
     }
 
     public void addElement(Element element) {
-        childElements.add(element);
+        childs.add(element);
     }
 
     public void addChildElement(Element element) {
-        childElements.add(element);
+        childs.add(element);
     }
 
     @Override
@@ -84,7 +84,7 @@ public class Element {
 
         if (!name.equals(element.name)) return false;
         if (attributes != null ? !attributes.equals(element.attributes) : element.attributes != null) return false;
-        if (childElements != null ? !childElements.equals(element.childElements) : element.childElements != null)
+        if (childs != null ? !childs.equals(element.childs) : element.childs != null)
             return false;
         return content != null ? content.equals(element.content) : element.content == null;
     }
@@ -93,7 +93,7 @@ public class Element {
     public int hashCode() {
         int result = name.hashCode();
         result = 31 * result + (attributes != null ? attributes.hashCode() : 0);
-        result = 31 * result + (childElements != null ? childElements.hashCode() : 0);
+        result = 31 * result + (childs != null ? childs.hashCode() : 0);
         result = 31 * result + (content != null ? content.hashCode() : 0);
         return result;
     }
@@ -103,7 +103,7 @@ public class Element {
         final StringBuilder sb = new StringBuilder("Element{");
         sb.append("name='").append(name).append('\'');
         sb.append(", attributes=").append(attributes);
-        sb.append(", child elements=").append(childElements);
+        sb.append(", child elements=").append(childs);
         sb.append(", content='").append(content).append('\'');
         sb.append('}');
         return sb.toString();

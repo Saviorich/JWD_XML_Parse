@@ -32,8 +32,8 @@ public class XMLPrinter {
         System.out.println(info);
 
         shift++;
-        if (e.getChildElements().size() != 0) {
-            for (Element childElement : e.getChildElements()) {
+        if (e.getChilds().size() != 0) {
+            for (Element childElement : e.getChilds()) {
                 consolePrint(childElement, shift);
             }
         }

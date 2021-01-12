@@ -36,7 +36,7 @@ public class XMLParser implements Parser {
         return xmlData;
     }
 
-    private boolean isOpeningWithClosingPattern(String s) {
+    private boolean isOpeningWithClosingTag(String s) {
         Matcher matcher = openingWithClosingPattern.matcher(s);
         return matcher.matches();
     }
@@ -90,14 +90,14 @@ public class XMLParser implements Parser {
     @Override
     public Element parse(String xml) {
         List<String> xmlData = parseIntoTags(xml);
-        List<Element> elementStack = new ArrayList<>();
+        List<Element> elementsStack = new ArrayList<>();
 
         Element rootElement = new Element();
         rootElement.setName(parseTagName(xmlData.get(0)));
         if (hasAttributes(xmlData.get(0))) {
             rootElement.setAttributes(parseAttributes(xmlData.get(0)));
         }
-        elementStack.add(rootElement);
+        elementsStack.add(rootElement);
 
         for (int i = 1; i < xmlData.size() - 1; i++) {
             String data = xmlData.get(i);
@@ -107,14 +107,14 @@ public class XMLParser implements Parser {
                 if (hasAttributes(data)) {
                     element.setAttributes(parseAttributes(data));
                 }
-                elementStack.add(element);
-            } else if (isOpeningWithClosingPattern(data)) {
+                elementsStack.add(element);
+            } else if (isOpeningWithClosingTag(data)) {
                 Element element = new Element();
                 element.setName(parseTagName(data));
                 if (hasAttributes(data)){
                     element.setAttributes(parseAttributes(data));
                 }
-                elementStack.get(elementStack.size() - 1).addChildElement(element);
+                elementsStack.get(elementsStack.size() - 1).addChildElement(element);
             } else if (isTagsWithContent(data)) {
                 Element element = new Element();
                 element.setName(parseTagName(data));
@@ -122,10 +122,10 @@ public class XMLParser implements Parser {
                     element.setAttributes(parseAttributes(data));
                 }
                 element.setContent(parseContent(data).trim());
-                elementStack.get(elementStack.size() - 1).addChildElement(element);
+                elementsStack.get(elementsStack.size() - 1).addChildElement(element);
             } else if (isClosingTag(data)){
-                Element poppedElement = elementStack.remove(elementStack.size() - 1);
-                elementStack.get(elementStack.size() - 1).addChildElement(poppedElement);
+                Element poppedElement = elementsStack.remove(elementsStack.size() - 1);
+                elementsStack.get(elementsStack.size() - 1).addChildElement(poppedElement);
             }
         }
         return rootElement;
