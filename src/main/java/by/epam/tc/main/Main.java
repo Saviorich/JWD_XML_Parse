@@ -11,8 +11,8 @@ public class Main {
     private static final String PATH = "src/main/resources/data.xml";
 
     public static void main(String[] args) throws IOException {
-        XMLReader reader = new XMLReader();
-        XMLParser parser = new XMLParser();
+        Reader reader = new XMLReader();
+        Parser parser = new XMLParser();
 
         String xmlData = reader.readFile(PATH);
         Element element = parser.parse(xmlData);
